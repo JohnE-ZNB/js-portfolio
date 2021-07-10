@@ -1,0 +1,52 @@
+
+* Hicimos la configuracion del webpack.config.js 
+* Descargamos babel-loader te permite hacer que tu código JavaScript sea compatible con todos los navegadores
+      babel-loader 
+      @babel/core es babel en general
+      @babel/preset-env trae y te permite usar las ultimas características de JavaScript (JavaScript Moderno)
+      @babel/plugin-transform-runtime te permite trabajar con todo el tema de asincronismo como ser async y await
+      -D -> dependencias de Desarrollo
+
+      Comando: npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D 
+
+* Debes crear el archivo de configuración de babel el cual tiene como nombre .babelrc e incluir:
+      {
+        "presets": [
+          "@babel/preset-env"
+        ],
+        "plugins": [
+          "@babel/plugin-transform-runtime"
+        ]
+      }
+
+* Modificamos el archivo webpack.config.js adicionando:
+      module: {
+        //Son la reglas (rules) que vamos aplicar para babel-loader SIEMPRE en EXPRESIONES REGULARES
+        rules: [
+          {
+            // Test declara que extensión de archivos que aplicara para el loader
+            test: /\.m?js$/,
+            // Exclude permite omitir archivos o carpetas especificas - Ej: node_modules pq esto haría romper el proyecto
+            exclude: /node_modules/,
+            // Use es un arreglo u objeto donde dices que loader aplicaras
+            use: {
+              loader: "babel-loader",
+            },
+          },
+        ],
+      },
+
+* Para usar html con webpack se debe instalar un plugin y configurarlo en webpack.config.js:
+      npm i html-webpack-plugin -D
+
+      plugins: [
+        new HtmlWebpackPlugin({
+          // CONFIGURACIÓN DEL PLUGIN
+          inject: true, // Hace la inserción de los elementos
+          template: "./public/index.html", //Donde este el template inicial
+          filename: "./index.html", //Nombre del archivo Resultado del Dist 
+        }),
+      ],
+
+
+
