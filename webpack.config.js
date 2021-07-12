@@ -37,6 +37,12 @@ module.exports = {
         // Use es un arreglo u objeto donde dices que loader aplicaras
         use: [MiniCssExtractPlugin.loader, "css-loader", "stylus-loader"],
       },
+      {
+        // Test declara que extensión de archivos que aplicara para el access model
+        test: /\.png/,
+        // Usaremos el resource que viene ya por defecto con webpack
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
@@ -50,7 +56,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src", "assets/images"),//Carpeta o archivo origen
+          from: path.resolve(__dirname, "src", "assets/images"), //Carpeta o archivo origen
           to: "assets/images", //Carpeta o archivo destino
         },
       ],

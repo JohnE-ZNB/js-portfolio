@@ -87,3 +87,18 @@
                             })
       - ES IMPORTANTE dejar claro que la ruta en el template o HTML debe ser la que quede la carpeta dist
         ejm: template-> "..src/assets/imagenes/prueba.png ........dist HTML-> "assets/imagenes/prueba.png"
+
+* Pasaremos las images png como variables y con nombre a base64 para una mejor compresión 
+      - Usamos access model que ya nos provee Webpack y lo que hacemos es modificar el webpack.config.js
+      {
+        test: /\.png/,
+        type: 'asset/resource'
+      }
+
+      - Importamos las imagenes en la plantilla (template.js)
+      import github from '../assets/images/github.png';
+      import twitter from '../assets/images/twitter.png';
+      import instagram from '../assets/images/instagram.png';
+
+      y usamos {github} | {twitter} etc....
+
