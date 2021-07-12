@@ -48,5 +48,25 @@
         }),
       ],
 
+* Para los CSS debemos añadir unos plugin igual para que el webpack lo pueda procesar
+      npm i mini-css-extract-plugin css-loader -D
+      npm install stylus -D
 
+* Debemos realizar varias cosas para funciones
+      -No se debe incluir los Estilos (.css dentro del html)
+      -Se debe importar los estilos en el archivo principal (index.js) Ej: import './styles/main.css';
 
+* Incluir el plugin min-css-extract... en la configuracion del webpack
+      const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+      
+      -Incluir dentro de reglas (rules) las extensiones css ¬ sty | etc...
+      {
+        test: /\.css|.styl$/i,
+        use: [MiniCssExtractPlugin.loader,
+          'css-loader',
+          'stylus-loader'
+        ],
+      }
+
+* Adicionamos a la sesion de plugin (webpack.config.js) para que este se pueda ejecutar
+      new MiniCssExtractPlugin()
