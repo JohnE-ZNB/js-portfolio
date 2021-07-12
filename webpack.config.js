@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 /* 
     Entry: Nombre desde donde inicia el proyecto
     output:
@@ -46,5 +47,13 @@ module.exports = {
       filename: "./index.html", //Nombre del archivo Resultado del Dist
     }),
     new MiniCssExtractPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets/images"),//Carpeta o archivo origen
+          to: "assets/images", //Carpeta o archivo destino
+        },
+      ],
+    }),
   ],
 };

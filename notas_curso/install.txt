@@ -70,3 +70,20 @@
 
 * Adicionamos a la sesion de plugin (webpack.config.js) para que este se pueda ejecutar
       new MiniCssExtractPlugin()
+
+* Ahora para copiar esos archivos que necesitamos en la carpeta de dist instalamos el siguiente plugin.
+      - comando de instalación: npm i copy-webpack-plugin -D
+      - configuramos: const CopyPlugin = require('copy-webpack-plugin');
+      - configuramos en plugins: 
+                  new CopyPlugin({
+                              patterns: [
+                                {
+                                  //Carpeta o archivo origen
+                                  from: path.resolve(__dirname, "src", "assets/images"), 
+                                  //Carpeta o archivo destino 
+                                  to: "assets/images"
+                                }
+                              ]
+                            })
+      - ES IMPORTANTE dejar claro que la ruta en el template o HTML debe ser la que quede la carpeta dist
+        ejm: template-> "..src/assets/imagenes/prueba.png ........dist HTML-> "assets/imagenes/prueba.png"
