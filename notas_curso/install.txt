@@ -101,4 +101,18 @@
       import instagram from '../assets/images/instagram.png';
 
       y usamos {github} | {twitter} etc....
+* (RECORDEMOS QUE EL FORMATO PARA FUENTES ES WOFF QUE ES EL OPTIMIZADO PARA WEB'S)
+      - http://google-webfonts-helper.herokuapp.com/fonts De esta pagina podemos descargar las fuentes
+
+* Añadimos las fuentes en el css 
+      @font-face {
+        font-family: 'Ubuntu';
+        src: url('../assets/fonts/ubuntu-regular.woff2') format('woff2'),
+          url('../assets/fonts/ubuntu-regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+      }
+
+* Para añadir nuestras fuentes a las Distribución (dist) debemos instalar el loader
+      - Comando: npm install url-loader file-loader -D
 
