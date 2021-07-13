@@ -18,6 +18,12 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"], //resolve: las extensiones que se debe tener en cuenta para compilar y unificar
+    alias: {
+      "@utils": path.resolve(__dirname, "src/utils/"),
+      "@templates": path.resolve(__dirname, "src/templates/"),
+      "@styles": path.resolve(__dirname, "src/styles/"),
+      "@images": path.resolve(__dirname, "src/assets/images/"),
+    },
   },
   module: {
     //Son la reglas (rules) que vamos aplicar para babel-loader SIEMPRE en EXPRESIONES REGULARES
@@ -53,8 +59,8 @@ module.exports = {
             limit: 10000,
             mimetype: "application/font-woff", // Habilita o deshabilita la transformación de archivos en base64.
             name: "[name].[contenthash].[ext]", //Para que respete el nombre y extensión original
-            outputPath: "./assets/fonts/", //Donde va a quedar el archivo
-            publicPath: "./assets/fonts/", //Donde queda publicamente
+            outputPath: "./assets/fonts/", //URL donde va a quedar el archivo
+            publicPath: "../assets/fonts/", //URL publica y que usa el html para obtener las fonts (OJO con URL revisar siempre)
             esModule: false,
           },
         },
@@ -69,7 +75,7 @@ module.exports = {
       filename: "./index.html", //Nombre del archivo Resultado del Dist
     }),
     new MiniCssExtractPlugin({
-      filename: "assets/[name].[contenthash].css",// Por optimización lo pasas a assets y le agregamos el content
+      filename: "assets/[name].[contenthash].css", // Por optimización lo pasas a assets y le agregamos el content
     }),
     new CopyPlugin({
       patterns: [
