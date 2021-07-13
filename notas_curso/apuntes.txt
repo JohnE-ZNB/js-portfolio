@@ -158,3 +158,40 @@
         '@styles': path.resolve(__dirname, 'src/styles/'),
         '@images': path.resolve(__dirname, 'src/assets/images/'),
       }
+
+* Uso de variables de entorno
+      - Comando: npm install -D dotenv-webpack
+      - Creamos los archivos .env | .env-example con el fin de saber el nombre de las variables
+      - En caso real esto se debe pedir a las personas del proyecto para poder usarla (BD, API, Credenciales, etc)
+
+* configuracion de la plugin:
+      - creamos variable ---- const Dotenv = require("dotenv-webpack");
+      - Incluimos en plugins ---- new Dotenv(),
+      - En caso de usa mirar utils/getData.js 
+
+* Para usar ambientes podemos crear un archivo para desarrollo y otro para producción:
+      - Creamos webpack.config.dev.js para el ambiente de Desarrollo
+      - agregamos en este archivo antes de resolve el MODO DE USO ---- mode: "development",
+      - Cuando compilemos usamos este archivo 
+      - Para facilidad modificamos package.json para modificar el comando: --- "dev": "webpack --config webpack.config.dev.js"
+      - podemos quitar los optimizadores para ver realmente el codigo y saber que todo funciona en desarrollo
+
+* Para el ambiente productivo vamos a limpiar y dejar lista la carpeta dist
+      - instalamos el limpiador - Comando: npm install -D clean-webpack-plugin
+      - Configuramos en el webpack.config.js QUE ES EL DE PRODUCCIÓN
+      - webpack.config.js
+        const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+        ...... En plugin'S
+        new CleanWebpackPlugin(), 
+      - PARA QUE PROCESE EN PRODUCCION y NOS ASEGUREMOS modificamos el comando de compilación
+        "build": "webpack --mode production --config webpack.config.js",
+
+* El modo Watch se activa de dos formas 
+      - Dev:  en el archivo de webpack.config.dev.js agregamos el modo watch:true
+      - Prod: podemos modificar el comando de compilacion "build:watch": "webpack --watch --config webpack.config.js"
+
+* Tener nuestro propio servidor web de webpack
+      - Comando: npm install webpack-dev-server -D
+
+
+* Webpack modo producción (Ayudas)

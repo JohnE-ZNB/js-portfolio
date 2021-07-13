@@ -2,10 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 /*
   [contenthash] para temas de optimización (clase 12)
 */
@@ -17,6 +14,8 @@ module.exports = {
     filename: "[name].[contenthash].js", // filename: Nombre del archivo resultante de webpack al compilar
     assetModuleFilename: "assets/images/[hash][ext][query]", //La Ruta hacia donde moveremos los assets
   },
+  mode: "development",//IMPORTANTE COLOCAR EL MODO DE USO EN DESAROLLO
+  watch: true, // PAra activale el modo escucha y esto hace que cada vez que se guarde un cambio se compile de automaticamente
   resolve: {
     extensions: [".js"], //resolve: las extensiones que se debe tener en cuenta para compilar y unificar
     alias: {
@@ -86,12 +85,6 @@ module.exports = {
         },
       ],
     }),
-    new Dotenv(), // PAra usar la variables de entorno
-    new CleanWebpackPlugin(), // Para limpiar el dist cada vez uque compilamos
+    new Dotenv(),
   ],
-  optimization: {
-    minimize: true,
-    //Para minimizar CSS y Terser para Javacript
-    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
-  },
 };
