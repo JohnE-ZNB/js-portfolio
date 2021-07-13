@@ -2,12 +2,18 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
+/*
+  [contenthash] para temas de optimización (clase 12)
+*/
 
 module.exports = {
   entry: "./src/index.js", //Entry: Nombre desde donde inicia el proyecto
   output: {
     path: path.resolve(__dirname, "dist"), //path= Nombre del directorio - path.resolve evita tener problemas con el servidor por la ubicacion
-    filename: "main.js", // filename: Nombre del archivo resultante de webpack al compilar
+    filename: "[name].[contenthash].js", // filename: Nombre del archivo resultante de webpack al compilar
     assetModuleFilename: "assets/images/[hash][ext][query]", //La Ruta hacia donde moveremos los assets
   },
   resolve: {
@@ -46,7 +52,7 @@ module.exports = {
           options: {
             limit: 10000,
             mimetype: "application/font-woff", // Habilita o deshabilita la transformación de archivos en base64.
-            name: "[name].[ext]", //Para que respete el nombre y extensión original
+            name: "[name].[contenthash].[ext]", //Para que respete el nombre y extensión original
             outputPath: "./assets/fonts/", //Donde va a quedar el archivo
             publicPath: "./assets/fonts/", //Donde queda publicamente
             esModule: false,
@@ -62,7 +68,9 @@ module.exports = {
       template: "./public/index.html", //Donde este el template inicial
       filename: "./index.html", //Nombre del archivo Resultado del Dist
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "assets/[name].[contenthash].css",// Por optimización lo pasas a assets y le agregamos el content
+    }),
     new CopyPlugin({
       patterns: [
         {
@@ -72,4 +80,9 @@ module.exports = {
       ],
     }),
   ],
+  optimization: {
+    minimize: true,
+    //Para minimizar CSS y Terser para Javacript
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+  },
 };

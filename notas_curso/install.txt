@@ -115,4 +115,38 @@
 
 * Para añadir nuestras fuentes a las Distribución (dist) debemos instalar el loader
       - Comando: npm install url-loader file-loader -D
+      - En el archivo webpack.config.js agregamos:
+      OUTPUT -> assetModuleFilename: "assets/images/[hash][ext][query]"
+      RULES lo siguiente:
+      {
+        // Test declara que extensión de archivos que aplicara para el loader
+        test: /\.(woff|woff2)$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 10000,
+            mimetype: "application/font-woff", // Habilita o deshabilita la transformación de archivos en base64.
+            name: "[name].[ext]", //Para que respete el nombre y extensión original
+            outputPath: "./assets/fonts/", //Donde va a quedar el archivo
+            publicPath: "./assets/fonts/", //Donde queda publicamente
+            esModule: false,
+          },
+        },
+
+* Optimización: hashes, compresión y minificación de archivos
+      - Comando: npm install css-minimizer-webpack-plugin terser-webpack-plugin -D
+* Agregamos en el webpack.config.js en import
+      const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+      const TerserPlugin = require('terser-webpack-plugin');
+
+      - Despues de Plugin agregamos la optimización
+      optimization: {
+        minimize: true,
+        minimizer: [
+          new CssMinimizerPlugin(),
+          new TerserPlugin(),
+        ]
+      }
+
+* Podemos adicionar el Hash para identificar cuando algo cambie y lo hacemos con [contenthash] (Revisar webpack.config.js)
 
