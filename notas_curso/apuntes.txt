@@ -201,3 +201,13 @@
         },
       - Moficamos nuestro package: "start": "webpack serve --config webpack.config.dev.js"
 
+* Webpack Bundle Analyzer 
+      - Comando: npm install -D webpack-bundle-analyzer
+      - Agregamos codigo en la config de desarrollo
+        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+        ........ en la parte plugin
+        new BundleAnalyzerPlugin({
+          analyzerPort: 1010
+        })
+      - Para sacar las estadisticas usamos el comando: npx webpack --profile --json > stats.json
+      - para verla de forma amigable en la web usamos:npx webpack-bundle-analyzer stats.json

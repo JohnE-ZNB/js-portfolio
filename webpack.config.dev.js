@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 /*
   [contenthash] para temas de optimización (clase 12)
 */
@@ -16,7 +17,8 @@ module.exports = {
   },
   mode: "development", //IMPORTANTE COLOCAR EL MODO DE USO EN DESAROLLO
   //watch: true, // PAra activale el modo escucha y esto hace que cada vez que se guarde un cambio se compile de automaticamente
-  //Como vamos a usar el server de desarrollo el tiene ese modo ya incluido por eso lo comentamos
+                //Como vamos a usar el server de desarrollo el tiene ese modo ya incluido por eso lo comentamos
+  devtool: "source-map", // Genera un mapa de nuestro codigo
   resolve: {
     extensions: [".js"], //resolve: las extensiones que se debe tener en cuenta para compilar y unificar
     alias: {
@@ -87,6 +89,9 @@ module.exports = {
       ],
     }),
     new Dotenv(),
+    new BundleAnalyzerPlugin({
+      analyzerPort: 3010, // Para cambiar el puerto que viene por defecto 8888 al 3010
+    }),
   ],
   devServer: {
     contentBase: path.join(__dirname, "dist"), //contenido base inicie en carpeta dist
