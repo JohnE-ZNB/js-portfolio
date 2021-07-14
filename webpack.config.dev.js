@@ -14,8 +14,9 @@ module.exports = {
     filename: "[name].[contenthash].js", // filename: Nombre del archivo resultante de webpack al compilar
     assetModuleFilename: "assets/images/[hash][ext][query]", //La Ruta hacia donde moveremos los assets
   },
-  mode: "development",//IMPORTANTE COLOCAR EL MODO DE USO EN DESAROLLO
-  watch: true, // PAra activale el modo escucha y esto hace que cada vez que se guarde un cambio se compile de automaticamente
+  mode: "development", //IMPORTANTE COLOCAR EL MODO DE USO EN DESAROLLO
+  //watch: true, // PAra activale el modo escucha y esto hace que cada vez que se guarde un cambio se compile de automaticamente
+  //Como vamos a usar el server de desarrollo el tiene ese modo ya incluido por eso lo comentamos
   resolve: {
     extensions: [".js"], //resolve: las extensiones que se debe tener en cuenta para compilar y unificar
     alias: {
@@ -87,4 +88,10 @@ module.exports = {
     }),
     new Dotenv(),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, "dist"), //contenido base inicie en carpeta dist
+    compress: true, //Si queremos que comprima
+    historyApiFallback: true, //Tener una Historia de lo que se esta haciendo en el naegador
+    port: 3006, //Puerto para el servidor
+  },
 };
